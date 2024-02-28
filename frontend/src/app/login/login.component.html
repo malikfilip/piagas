@@ -1,0 +1,25 @@
+<div class="container  d-flex justify-content-center" style="margin-top: 10%;">
+<table class="text-center">
+    <tr>
+        <td>Username : </td>
+        <td><input type="text" [(ngModel)]="username"></td>
+    </tr>
+    <tr>
+        <td>
+            Password : 
+        </td>
+        <td>
+            <input type="password" [(ngModel)]="password">
+        </td>
+    </tr>
+</table>
+
+</div>
+
+<div class="container d-flex justify-content-center text-center gap-2" style="margin-top: 10px;">
+    <button (click)="login()">Login</button>
+    
+    <button (click)="register()">Back</button>
+    <span style="color: crimson;">{{errorMessage}}</span>
+</div>
+

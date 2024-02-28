@@ -1,0 +1,210 @@
+<nav class="navbar navbar-expand-lg bg-danger-subtle">
+  <div class="container">
+    <a class="navbar-brand fs-3 text-secondary">{{user.name}} <img src="favicon.ico" width="50" height="50">
+      {{user.lastname}}</a>
+    <button class="navbar-toggler shadow-none border-0" type="button" data-bs-toggle="offcanvas"
+      data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="sidebar offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+      aria-labelledby="offcanvasNavbarLabel">
+      <div class="offcanvas-header text-warning border-bottom">
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+        <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="offcanvas"
+          aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body d-flex flex-column  flex-lg-row p-4 p-lg-0">
+        <ul class="navbar-nav justify-content-center align-items-center flex-grow-1 pe-3 fs-5">
+          <li class="nav-item mx-2">
+            <a class="nav-link" href="pHome">Profile</a>
+          </li>
+          <li class="nav-item mx-2">
+            <a class="nav-link" href="pDoctors">Doctors</a>
+          </li>
+          <li class="nav-item mx-2">
+            <a class="nav-link active px-3 py-1 bg-light rounded-4" aria-current="page"
+              href="pAppointments">Appointments</a>
+          </li>
+          <li class="nav-item mx-2">
+            <a class="nav-link" href="pNotifications">Notifications</a>
+          </li>
+        </ul>
+        <div class="d-flex justify-content-center align-items-center gap-3 flex-column flex-lg-row">
+          <a href="change" class="text-success">Change password</a>
+          <a href="" class="text-white text-decoration-none px-3 py-1 bg-danger rounded-4">Log out</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<br>
+<div class="container table-container1">
+  <p class="text-center border-bottom border-3 fs-2">Appointments</p>
+</div>
+
+<!--Table of appointments-->
+<div class="container table-container1 d-flex justify-content-center">
+  <table *ngIf="appointments.length>0" class="table text-center">
+    <tr class="bg-dark text-white">
+      <th>
+        Appointment
+      </th>
+      <th>
+        Date
+      </th>
+      <th>
+        Location
+      </th>
+      <th>
+        Doctor
+      </th>
+      <th></th>
+    </tr>
+    <tr *ngFor="let app of appointments" class="bg-secondary text-white">
+      <td>{{app.type}}</td>
+      <td>{{app.start}}</td>
+      <td>{{app.room}}</td>
+      <td>{{app.result[0].name}}</td>
+      <td><button class="button bg-danger rounded text-white" (click)="cancel(app._id)">Cancel appointment</button></td>
+
+    </tr>
+  </table>
+
+</div>
+
+<div class="container table-container2">
+  <p class="text-center border-bottom border-3 fs-2">Reports </p>
+</div>
+
+
+
+<!--Table of reports-->
+<br>
+<div class="container table-container2 d-flex justify-content-center">
+  <table *ngIf="reports.length>0" class="table text-center">
+    <tr class="bg-dark text-white">
+      <th>
+        Date
+      </th>
+      <th>
+        Doctor
+      </th>
+      <th>
+        Specialization
+      </th>
+      <th>
+        Appointment
+      </th>
+      <th>Diagnosis</th>
+      <th>Therapy</th>
+      <th>Control</th>
+      <th>Export</th>
+    </tr>
+
+    <tr *ngFor="let rep of reports" class="bg-secondary text-white" id="sewey">
+      <td>{{rep.date}}</td>
+      <td>{{rep.result[0].name}}</td>
+      <td>{{rep.spec}}</td>
+      <td>{{rep.type}}</td>
+      <td style="width: 300px;">{{rep.diagnosis}}</td>
+      <td style="width: 300px;">{{rep.therapy}}</td>
+      <td>{{rep.control}}</td>
+      <td><button class="button bg-success rounded text-white" (click)="exportOne(rep)">
+          <img src="assets/file.png" width="50" height="50">
+        </button></td>     
+
+    </tr>
+    <tr>
+      <td colspan="9">
+        <button class="button bg-warning text-dark rounded-3" (click)="exportAll()" *ngIf="showExportOne==false && showExportAll==false">Export all</button>
+        <button class="button bg-danger text-dark rounded-3" (click)="cancelExport()" *ngIf="showExportOne || showExportAll">🚫</button>
+        <button class="button bg-success text-dark rounded-3" (click)="export()" *ngIf="showExportOne || showExportAll">📩</button>
+
+      </td>   
+    </tr>
+
+  </table>
+
+</div>
+
+<!--Exports-->
+
+<div class="container table-container2 d-flex justify-content-center" id="exportAll" *ngIf="showExportAll">
+  <table *ngIf="reports.length>0" class="table text-center table-bordered">
+    <tr><th colspan="7" class="bg-dark text-white">REPORTS - {{user.name}} {{user.lastname}}</th></tr>
+    <tr class="bg-white text-dark">
+      <th>
+        Date
+      </th>
+      <th>
+        Doctor
+      </th>
+      <th>
+        Specialization
+      </th>
+      <th>
+        Appointment
+      </th>
+      <th>Diagnosis</th>
+      <th>Therapy</th>
+      <th>Control</th>
+ 
+    </tr>
+
+    <tr *ngFor="let rep of reports" class="bg-white text-dark" id="sewey">
+      <td>{{rep.date}}</td>
+      <td>{{rep.result[0].name}}</td>
+      <td>{{rep.spec}}</td>
+      <td>{{rep.type}}</td>
+      <td style="width: 300px;">{{rep.diagnosis}}</td>
+      <td style="width: 300px;">{{rep.therapy}}</td>
+      <td>{{rep.control}}</td>
+      
+
+    </tr>
+    
+  
+
+  </table>
+
+</div>
+
+<!--Export one-->
+
+
+  <div class="container table-container3 d-flex justify-content-center" id="exportOne" *ngIf="showExportOne">
+    <table *ngIf="reports.length>0" class="table text-center table-bordered">
+      <tr class="bg-dark text-white text-monospace">
+        <th colspan="3">Report - {{user.name}} {{user.lastname}}</th>
+      </tr>
+      <tr class="bg-white text-dark">
+        <td colspan="3">Doctor {{reportExport.result[0].name}} {{reportExport.result[0].lastname}}</td>
+      </tr>
+      <tr class="bg-white text-dark" style="height: 50px;">
+        <td >{{reportExport.date}}</td>
+        <td >{{reportExport.type}}</td>
+        <td >Location: {{reportExport.result[0].room}}</td>
+      </tr>
+      <tr class="bg-white text-dark">
+        <td colspan="3"  class="border-3 border-dark">Diagnosis</td>
+      </tr>
+      <tr class="bg-white text-dark">
+        <td colspan="3" style="height: 200px;">{{reportExport.diagnosis}}</td>
+      </tr>
+      <tr class="bg-white text-dark">
+        <td colspan="3"  class="border-3 border-dark">Therapy</td>
+      </tr>
+      <tr class="bg-white text-dark">
+        <td colspan="3" style="height: 200px;">{{reportExport.therapy}}</td>
+      </tr>
+      <tr class="bg-white text-dark">
+        <td colspan="3"  class="border-3 border-dark">Control: {{reportExport.control}}</td>
+      </tr>
+      <tr class="bg-dark text-white">
+        <td colspan="3"  class="border-3 border-dark">©️ Premiere league hospital</td>
+      </tr>
+      
+      
+      </table>
+</div>

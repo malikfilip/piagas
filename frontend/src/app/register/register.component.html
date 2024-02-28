@@ -1,0 +1,71 @@
+
+<button type="button" class="btn btn-info" style="margin-top: 10px;margin-left: 10px;" (click)="back()">Back</button>
+<div class="container text-center d-flex justify-content-center" style="margin-top: 50px;">
+
+
+<table class="table table-width text-white" style="border: black solid;background-color: darkslateblue;">
+    
+    
+    
+    <tr>
+        <td>Username: </td>
+        <td><input type="text" [(ngModel)]="username"></td>
+    </tr>
+    <tr>
+        <td>Password: </td>
+        <td><input type="password" [(ngModel)]="password" [ngStyle]="{ 'background-color' : regex(password) ? 'lime' : (password) ? 'red' : 'null' }"></td>
+    </tr>
+    <tr>
+        <td>Confirm password: </td>
+        <td><input type="password" [(ngModel)]="confirm" [ngStyle] = "{ 'background-color' : (password == confirm && regex(password)) ? ((confirm) ? 'lime' : 'null') : ((confirm) ? 'red' : 'null' )}" ></td>
+    </tr>
+    <tr>
+        <td>Name: </td>
+        <td><input type="text" [(ngModel)]="name" ></td>
+    </tr>
+    <tr>
+        <td>Last name: </td>
+        <td><input type="text" [(ngModel)]="lastname" ></td>
+    </tr>
+    <tr>
+        <td>Address: </td>
+        <td><input type="text" [(ngModel)]="address" ></td>
+    </tr>
+    <tr>
+        <td>Phone number: </td>
+        <td><input type="text" [(ngModel)]="phone" ></td>
+    </tr>
+    <tr>
+        <td>E-mail address: </td>
+        <td><input type="text" [(ngModel)]="mail" ></td>
+    </tr>    
+    <tr>
+        <td>Profile picture: </td>
+        <td><input type="file" (change)="addPicture($event)" style="background-color: darkslateblue;color:white"></td>
+    </tr>
+    
+</table>
+<br/>
+</div>
+<div class="container-md justify-content-center text-center" style="margin-top: 10px;">
+<img [src] = "picture" width="150" height="150" alt="sui" *ngIf="picture!=null" class="rounded-circle">
+<button *ngIf="picture" (click)="removePicture()">Remove picture</button>
+<br/>
+<button (click)="register()" [disabled]="!username || !password || !confirm
+|| !name || !lastname || !address || !phone ||!mail || !regex(password) || password != confirm">Register me !</button><br>
+<button type="button" class="btn btn-warning" (click)="back()">Back</button>
+<br/>
+<span style="color: lime;">{{noError}}</span>
+<span style="color: crimson;">
+    <ul>
+        <li *ngIf="errorUser">
+            {{errorUser}}
+        </li>
+        <li *ngIf="errorMail">
+            {{errorMail}}
+        </li>
+    </ul>
+    
+</span>
+
+</div>

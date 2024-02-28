@@ -1,0 +1,237 @@
+<!--Navbar-->
+<nav class="navbar navbar-expand-lg" style="background-color: rgb(14, 14, 101);">
+  <div class="container">
+    <a class="navbar-brand fs-3 text-white">{{user.name}} <img src="favicon.ico" width="50" height="50">
+      {{user.lastname}}</a>
+    <button class="navbar-toggler shadow-none border-0" type="button" data-bs-toggle="offcanvas"
+      data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="sidebar offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+      aria-labelledby="offcanvasNavbarLabel">
+      <div class="offcanvas-header text-warning border-bottom">
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+        <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="offcanvas"
+          aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body d-flex flex-column  flex-lg-row p-4 p-lg-0">
+        <ul class="navbar-nav justify-content-center align-items-center flex-grow-1 pe-3 fs-5">
+          <li class="nav-item mx-2">
+            <a class="nav-link active px-3 py-1 bg-light rounded-4 " aria-current="page" href="manager"> Users</a>
+          </li>
+          <li class="nav-item mx-2">
+            <a class="nav-link text-white" href="mReq">Requests</a>
+          </li>
+          <li class="nav-item mx-2">
+            <a class="nav-link text-white" href="mOther">Other</a>
+          </li>
+
+        </ul>
+        <div class="d-flex justify-content-center align-items-center gap-3 flex-column flex-lg-row">
+          <a href="change" class="text-success">Change password</a>
+          <a href="" class="text-white text-decoration-none px-3 py-1 bg-danger rounded-4">Log out</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!--Users-->
+<span class="d-flex justify-content-center" style="color: crimson;">{{error}}</span>
+
+
+<div class="d-flex justify-content-center" style="margin-top: 100px;">
+
+  <table style="border: white solid;" class="table-width">
+    <tr *ngFor="let x of users" style="text-align: center;">
+      <td [style.background-color]="x.type=='doctor' ? 'CornflowerBlue' : 'bisque'" style="width: 200px;">
+        <button class="btn btn-danger" (click)="delete(x)">Delete</button> |
+        <button class="btn btn-info" (click)="updateUser(x)">Update</button>
+      </td>
+      <td [style.background-color]="x.type=='doctor' ? 'CornflowerBlue' : 'bisque'">{{x.name}} {{x.lastname}}</td>
+      <td [style.background-color]="x.type=='doctor' ? 'CornflowerBlue' : 'bisque'">{{x.address}}</td>
+      <td [style.background-color]="x.type=='doctor' ? 'CornflowerBlue' : 'bisque'">{{x.mail}}</td>
+      <td [style.background-color]="x.type=='doctor' ? 'CornflowerBlue' : 'bisque'">{{x.phone}}</td>
+      <td [style.background-color]="x.type=='doctor' ? 'CornflowerBlue' : 'bisque'">{{x.type}}</td>
+      <td class="text-white" style="width: 50px;"><img [src]="x.picture" width="50" height="50"></td>
+    </tr>
+  </table>
+
+</div>
+<button type="button" class="btn btn-success" style="margin-left: 50%;margin-top: 10px;" [disabled]="!username || !password || !confirm
+|| !name || !lastname || !address || !phone ||!mail || !regex(password) || 
+password != confirm ||!licence || !room || !spec" (click)="register()" *ngIf="showRegister">Add doctor</button>
+
+<!--Register-->
+
+<div class="d-flex justify-content-center text-center" style="margin-top: 20px;" *ngIf="showRegister">
+  <table class=" table table-width2 bg-secondary text-warning" style="border:white double">
+
+
+
+    <tr>
+      <td>Username: </td>
+      <td><input type="text" [(ngModel)]="username"
+          style="background-color: lightslategray;border: black solid;height: 35px;"></td>
+    </tr>
+    <tr>
+      <td>Password: </td>
+      <td><input style="background-color: lightslategray;border: black solid;height: 35px;" type="password"
+          [(ngModel)]="password"
+          [ngStyle]="{ 'border-color' : regex(password) ? 'lime' : (password) ? 'red' : 'null' }"></td>
+    </tr>
+    <tr>
+      <td>Confirm password: </td>
+      <td><input style="background-color: lightslategray;border: black solid;height: 35px;" type="password"
+          [(ngModel)]="confirm"
+          [ngStyle]="{ 'border-color' : (password == confirm && regex(password)) ? ((confirm) ? 'lime' : 'null') : ((confirm) ? 'red' : 'null' )}">
+      </td>
+    </tr>
+    <tr>
+      <td>Name: </td>
+      <td><input style="background-color: lightslategray;border: black solid;height: 35px;" type="text"
+          [(ngModel)]="name"></td>
+    </tr>
+    <tr>
+      <td>Last name: </td>
+      <td><input style="background-color: lightslategray;border: black solid;height: 35px;" type="text"
+          [(ngModel)]="lastname"></td>
+    </tr>
+    <tr>
+      <td>Address: </td>
+      <td><input style="background-color: lightslategray;border: black solid;height: 35px;" type="text"
+          [(ngModel)]="address"></td>
+    </tr>
+    <tr>
+      <td>Phone number: </td>
+      <td><input style="background-color: lightslategray;border: black solid;height: 35px;" type="text"
+          [(ngModel)]="phone"></td>
+    </tr>
+    <tr>
+      <td>E-mail address: </td>
+      <td><input style="background-color: lightslategray;border: black solid;height: 35px;" type="text"
+          [(ngModel)]="mail"></td>
+    </tr>
+    <tr>
+      <td>Licence: </td>
+      <td><input style="background-color: lightslategray;border: black solid;height: 35px;" type="text"
+          [(ngModel)]="licence"></td>
+    </tr>
+    <tr>
+      <td>Specialization : </td>
+      <td><select [(ngModel)]="spec" style="height: 40px;">
+          <option *ngFor="let x of specializations">{{x.name}}</option>
+        </select></td>
+    </tr>
+    <tr>
+      <td>Room : </td>
+      <td><select [(ngModel)]="room" style="height: 40px;width: 105px;">
+          <option value="north">North</option>
+          <option value="south">South</option>
+          <option value="west">West</option>
+          <option value="east">East</option>
+        </select></td>
+    </tr>
+    <tr>
+      <td>Profile picture: </td>
+      <td class="bg-secondary"><input type="file" (change)="addPicture($event)" style="background-color: #6c757d;"></td>
+    </tr>
+
+  </table>
+</div>
+
+<!--Change info-->
+<button type="button" class="btn btn-success" style="margin-left: 50%;margin-top: 10px;" [disabled]="
+!name && !lastname && !address && !phone && !mail &&!regPicture" (click)="update()" *ngIf="!showRegister">Update</button>
+<button type="button" class="btn btn-danger" style="margin-left: 50%;margin-top: 10px;" (click)="cancelUpdate()"
+  *ngIf="!showRegister">Cancel</button>
+
+<div class="d-flex justify-content-center text-center" style="margin-top: 20px;" *ngIf="!showRegister && (target.type=='patient')">
+  <table class=" table table-width2 bg-secondary text-warning" style="border:white double">
+    <tr>
+      <td>New name: </td>
+      <td><input style="background-color: lightslategray;border: black solid;height: 35px;" type="text"
+          [(ngModel)]="name"></td>
+    </tr>
+    <tr>
+      <td>New last name: </td>
+      <td><input style="background-color: lightslategray;border: black solid;height: 35px;" type="text"
+          [(ngModel)]="lastname"></td>
+    </tr>
+    <tr>
+      <td>New address: </td>
+      <td><input style="background-color: lightslategray;border: black solid;height: 35px;" type="text"
+          [(ngModel)]="address"></td>
+    </tr>
+    <tr>
+      <td>New phone number: </td>
+      <td><input style="background-color: lightslategray;border: black solid;height: 35px;" type="text"
+          [(ngModel)]="phone"></td>
+    </tr>
+    <tr>
+      <td>New e-mail address: </td>
+      <td><input style="background-color: lightslategray;border: black solid;height: 35px;" type="text"
+          [(ngModel)]="mail"></td>
+    </tr>
+    <tr>
+      <td>New profile picture: </td>
+      <td class="bg-secondary"><input type="file" (change)="addPicture($event)" style="background-color: #6c757d;"></td>
+    </tr>
+
+  </table>
+</div>
+
+<div class="d-flex justify-content-center text-center" style="margin-top: 20px;" *ngIf="!showRegister && (target.type=='doctor')">
+  <table class=" table table-width3 bg-secondary text-warning" style="border:white double">
+    <tr>
+      <td>New name: </td>
+      <td><input style="background-color: lightslategray;border: black solid;height: 35px;" type="text"
+          [(ngModel)]="name"></td>
+    </tr>
+    <tr>
+      <td>New last name: </td>
+      <td><input style="background-color: lightslategray;border: black solid;height: 35px;" type="text"
+          [(ngModel)]="lastname"></td>
+    </tr>
+    <tr>
+      <td>New address: </td>
+      <td><input style="background-color: lightslategray;border: black solid;height: 35px;" type="text"
+          [(ngModel)]="address"></td>
+    </tr>
+    <tr>
+      <td>New phone number: </td>
+      <td><input style="background-color: lightslategray;border: black solid;height: 35px;" type="text"
+          [(ngModel)]="phone"></td>
+    </tr>
+    <tr>
+      <td>New e-mail address: </td>
+      <td><input style="background-color: lightslategray;border: black solid;height: 35px;" type="text"
+          [(ngModel)]="mail"></td>
+    </tr>
+    <tr>
+      <td>New licence({{target.licence}}): </td>
+      <td><input style="background-color: lightslategray;border: black solid;height: 35px;" type="text"
+          [(ngModel)]="licence"></td>
+    </tr>
+    <tr>
+      <td>New specialization({{target.spec}}) : </td>
+      <td><select [(ngModel)]="spec" style="height: 40px;">
+          <option *ngFor="let x of specializations">{{x.name}}</option>
+        </select></td>
+    </tr>
+    <tr>
+      <td>New room({{target.room}}): </td>
+      <td><select [(ngModel)]="room" style="height: 40px;width: 105px;">
+          <option value="north">North</option>
+          <option value="south">South</option>
+          <option value="west">West</option>
+          <option value="east">East</option>
+        </select></td>
+    </tr>
+    <tr>
+      <td>New profile picture: </td>
+      <td class="bg-secondary"><input type="file" (change)="addPicture($event)" style="background-color: #6c757d;"></td>
+    </tr>
+
+  </table>
+</div>

@@ -1,0 +1,140 @@
+<!--Doctor menu-->
+<nav class="navbar navbar-expand-lg bg-danger-subtle">
+    <div class="container">
+      <a class="navbar-brand fs-3 text-secondary">{{user.name}} <img src="favicon.ico" width="50" height="50">
+        {{user.lastname}}</a>
+      <button class="navbar-toggler shadow-none border-0" type="button" data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="sidebar offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+        aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas-header text-warning border-bottom">
+          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+          <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="offcanvas"
+            aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body d-flex flex-column  flex-lg-row p-4 p-lg-0">
+          <ul class="navbar-nav justify-content-center align-items-center flex-grow-1 pe-3 fs-5">
+            <li class="nav-item mx-2">
+              <a class="nav-link active px-3 py-1 bg-light rounded-4" aria-current="page" href="dHome">Profile</a>
+            </li>
+            <li class="nav-item mx-2">
+              <a class="nav-link" href="dAppointments">Appointments</a>
+            </li>
+            <li class="nav-item mx-2">
+              <a class="nav-link" href="dOther">Other</a>
+            </li>
+           
+          </ul>
+          <div class="d-flex justify-content-center align-items-center gap-3 flex-column flex-lg-row">
+            <a href="change" class="text-success">Change password</a>
+            <a href="" class="text-white text-decoration-none px-3 py-1 bg-danger rounded-4">Log out</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <br>
+
+  <!--Profile card-->
+  
+
+  <div class="container">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-10 mt-5 pt-5">
+        <div class="row z-depth-3 rounded-pill menu-pink ">
+          <div class="col-sm-4  rounded-left">
+          <div class="card-block text-center text-white">
+            <br>
+            <img [src]="user.picture" class="rounded-circle mx-auto d-block border border-light border-3" width="100" height="100" 
+            (click)="fun()">
+            <h2 class="font-weight-bold mt-4" *ngIf="!show">Doctor {{user.name[0]}}. {{user.lastname}}</h2>
+            {{show ? 'Change picture' : ''}}<input type="file" *ngIf="show" (change)="addPicture($event)"><br *ngIf="show"><br *ngIf="show">
+          
+
+            <button type="button" class="btn btn-light rounded-circle" (click)="edit()" *ngIf="!show">✎</button>
+            <button type="button" class="btn btn-light rounded-circle" (click)="confirm()" *ngIf="show">✅</button>
+            <br>{{show ? 'Confirm' : 'Edit'}}
+          </div>
+        </div>
+        
+        
+        <div class="col-sm-8 rounded-right info-pink border border-light border-3">
+          <h3 class="mt-3 text-center text-monospace" *ngIf="!show"><i>Information</i></h3>
+          <h5 class="mt-3 text-center text-monospace" *ngIf="show"><i>Edit profile</i></h5>
+          <div class="row ">
+            <div class="col-sm-4">
+              <p class="font-weight-bold">{{show ? 'Change name' : 'Full name'}}</p>
+              <h6 class="text-muted" *ngIf="!show">{{user.name}} {{user.lastname}}</h6>
+              <div class="d-flex bd-highlight mb-3 gap-3">
+                <div class="col-5">
+                  <input type="text" class="form-control" placeholder="Name" *ngIf="show" [(ngModel)]="newName">
+                </div>
+                <div class="col-5">
+                  <input type="text" class="form-control" placeholder="Last name" *ngIf="show"[(ngModel)]="newLastname">
+                </div>
+              </div>
+
+
+            </div>
+            <div class="col-sm-4">
+              <p class="font-weight-bold">{{show ? 'Change phone' : 'Phone'}}</p>
+              <h6 class="text-muted" *ngIf="!show">{{user.phone}}</h6>
+              <div class="col-11">
+                <input type="text" class="form-control" placeholder="Phone number" *ngIf="show" [(ngModel)]="newPhone">
+              </div>
+            </div>
+            <div class="col-sm-4">
+                <p class="font-weight-bold">{{show ? 'Change spec.' : 'Specialization'}}</p>
+                <h6 class="text-muted" *ngIf="!show">{{user.spec}}</h6>
+                <div class="col-11">
+                  <input type="text" class="form-control" placeholder="Specialization" *ngIf="show" [(ngModel)]="newSpec">
+                </div>
+              </div>
+          </div>
+          <hr class="bg-primary">
+         
+          <div class="row">
+            <div class="col-sm-4">
+              <p class="font-weight-bold">{{show ? 'Change address' : 'Address / room'}}</p>
+              <h6 class="text-muted" *ngIf="!show">{{user.address}} / {{user.room}}</h6>
+              <div class="col-11">
+                <input type="text" class="form-control" placeholder="Address" *ngIf="show" [(ngModel)]="newAddress">
+              </div>
+        </div>
+            <div class="col-sm-4">
+              <p class="font-weight-bold">E-mail address</p>
+              <h6 class="text-muted">{{user.mail}}</h6>
+              
+            </div>
+            <div class="col-sm-4">
+                <p class="font-weight-bold">{{show ? 'Change licence' : 'Licence'}}</p>
+                <h6 class="text-muted" *ngIf="!show">{{user.licence}}</h6>
+                <div class="col-11">
+                  <input type="text" class="form-control" placeholder="Licence" *ngIf="show" [(ngModel)]="newLicence">
+                </div>
+              </div>  
+        
+        </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+<!--Services table-->
+
+  <div class="container container-width justify-content-center">
+  <table class="table table-border">
+    <tr style="border: 3px solid;">
+      <th colspan="2" class="text-center"> Services </th>
+    </tr>
+    <tr *ngFor="let service of spec" style="height: 50px;">
+      <td class="w-75" style="border-bottom: solid;">{{service.name}}</td><td class="w-25 text-center" style="border-bottom: solid;">
+        <input type="checkbox" [checked]="service.active" (change)="updateService($event,service)">
+      </td>
+    </tr>
+  </table>
+</div>

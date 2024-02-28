@@ -1,0 +1,178 @@
+<!--Menu-->
+
+<nav class="navbar navbar-expand-lg bg-danger-subtle">
+  <div class="container">
+    <a class="navbar-brand fs-3 text-secondary">{{user.name}} <img src="favicon.ico" width="50" height="50">
+      {{user.lastname}}</a>
+    <button class="navbar-toggler shadow-none border-0" type="button" data-bs-toggle="offcanvas"
+      data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="sidebar offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+      aria-labelledby="offcanvasNavbarLabel">
+      <div class="offcanvas-header text-warning border-bottom">
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+        <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="offcanvas"
+          aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body d-flex flex-column  flex-lg-row p-4 p-lg-0">
+        <ul class="navbar-nav justify-content-center align-items-center flex-grow-1 pe-3 fs-5">
+          <li class="nav-item mx-2">
+            <a class="nav-link" href="pHome">Profile</a>
+          </li>
+          <li class="nav-item mx-2">
+            <a class="nav-link active px-3 py-1 bg-light rounded-4" aria-current="page" href="pDoctors">Doctors</a>
+          </li>
+          <li class="nav-item mx-2">
+            <a class="nav-link" href="pAppointments">Appointments</a>
+          </li>
+          <li class="nav-item mx-2">
+            <a class="nav-link" href="pNotifications">Notifications</a>
+          </li>
+        </ul>
+        <div class="d-flex justify-content-center align-items-center gap-3 flex-column flex-lg-row">
+          <a href="change" class="text-success">Change password</a>
+          <a href="" class="text-white text-decoration-none px-3 py-1 bg-danger rounded-4">Log out</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<br>
+
+<!--Doctors-->
+
+<div class="container">
+  <div class="text-center">
+    Sort :
+    <select [(ngModel)]="sortParam">
+      <option value="name" selected="selected">
+        Name
+      </option>
+      <option value="lastname">
+        Last name
+      </option>
+      <option value="spec">
+        Specialization
+      </option>
+      <option value="spec">
+        Room
+      </option>
+    </select>
+    <button style="white-space: nowrap;" (click)="sortDown()">🡻</button>
+    <button style="white-space: nowrap;" (click)="sortUp()">🡹</button>
+  </div>
+  <div class="text-center">
+    <input type="text" placeholder="Name" [(ngModel)]="searchName">
+    <input type="text" placeholder="Lastname" [(ngModel)]="searchLastname">
+    <input type="text" placeholder="Specialization" [(ngModel)]="searchSpec">
+    <input type="text" placeholder="Room" [(ngModel)]="searchRoom">
+    <button (click)="search()">Search</button>
+  </div>
+
+  <table class="table border border-dark">
+    <thead class="thead-light">
+      <tr class="table-primary text-center">
+        <th scope="col">Picture</th>
+        <th scope="col ">Name</th>
+        <th scope="col">Specialization</th>
+        <th scope="col">Room</th>
+      </tr>
+      <tr *ngFor="let d of doctors">
+        <td class="bg-info text-center">
+          <img [src]="d.picture" width="100" height="100" (click)="info(d.username)">
+        </td>
+        <td class="bg-info text-danger fs-3 text-center centerCell ">
+          {{d.name}} {{d.lastname}}
+        </td>
+        <td class="bg-info text-danger fs-1 text-center centerCell ">
+          {{d.spec}}
+        </td>
+        <td class="bg-info text-danger fs-1 text-center centerCell ">
+          {{d.room}}
+        </td>
+
+      </tr>
+    </thead>
+  </table>
+</div>
+
+<!--Doctor card-->
+
+<div class="container" *ngIf="showDoc">
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-10 mt-5 pt-5">
+      <div class="row z-depth-3 rounded-pill menu-pink bg-info border border-light  border-5">
+        <div class="col-sm-4  rounded-left">
+          <div class="card-block text-center text-white">
+            <br>
+            <img [src]="doctorInfo?.picture" class="rounded-circle mx-auto d-block border border-light border-3"
+              width="100" height="100">
+            <h2 class="font-weight-bold mt-4">Doc {{doctorInfo?.lastname}}</h2>
+
+            <span style="font-family: 'Times New Roman', Times, serif;">{{doctorInfo?.spec}}</span>
+
+            <br>{{doctorInfo?.licence}}
+          </div>
+        </div>
+        <div class="col-sm-8 rounded-right">
+          <h3 class="mt-3 text-center text-monospace"><i>Information</i></h3>
+          <div class="row ">
+            <div class="col-sm-6">
+              <p class="font-weight-bold">Name:</p>
+              <h6 class="text-white">{{doctorInfo?.name}} {{doctorInfo?.lastname}}</h6>
+
+
+
+            </div>
+            <div class="col-sm-6">
+              <p class="font-weight-bold">Phone</p>
+              <h6 class="text-white">{{doctorInfo?.phone}}</h6>
+
+            </div>
+          </div>
+          <hr class="bg-primary">
+          <div class="row">
+            <div class="col-sm-6">
+              <p class="font-weight-bold">Address</p>
+              <h6 class="text-white">{{doctorInfo?.address}} / {{doctorInfo?.room}}</h6>
+            </div>
+            <div class="col-sm-6">
+              <p class="font-weight-bold">E-mail address</p>
+              <h6 class="text-white">{{doctorInfo?.mail}}</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Doctor service-->
+
+<div class="container table-container d-flex justify-content-center">
+  <table *ngIf="docServices.length>0" class="table text-center">
+    <tr class="bg-dark text-white">
+      <th>
+        Type of service
+      </th>
+      <th>
+        Duration
+      </th>
+      <th>
+        Price
+      </th>
+    </tr>
+<tr *ngFor="let s of docServices" class="bg-danger-subtle">
+  <td>{{s.type}}</td>
+  <td>{{s.duration}} hours</td>
+  <td>{{s.price}} $</td>
+
+</tr>
+<tr>
+  <td colspan="3"><button class="button bg-success rounded text-white" (click)="schedule()">Schedule appointment</button></td>
+</tr>
+
+  </table>
+
+</div>

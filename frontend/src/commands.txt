@@ -1,0 +1,7 @@
+1)Instalacija nodemailer-a : npm i nodemailer --save {instalira se na frontu} ->fonder bekend
+2)Instalacija QR coda : npm install angularx-qrcode --save {instalira se u Project} ->folder frontent
+3)Instalacija dependancy-ja za QR code : npm i qordobo/qrcode --save (u obican terminal)
+//ovo dodati u angular json u options  "allowedCommonJsDependencies": [ "angularx-qrcode", "qrcode", "@cordobo/qrcode" ],
+4)Instalacija jsPDF : npm install jspdf --save ->u folderu frontend
+5)Instalacija html2canvas da bismo lepo ispisali pdf : npm i html2canvas --save
+!Ako nesto ne radi dodati --force na kraj.

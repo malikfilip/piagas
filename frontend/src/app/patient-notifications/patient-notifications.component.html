@@ -1,0 +1,92 @@
+<nav class="navbar navbar-expand-lg bg-danger-subtle">
+  <div class="container">
+    <a class="navbar-brand fs-3 text-secondary">{{user.name}} <img src="favicon.ico" width="50" height="50">
+      {{user.lastname}}</a>
+    <button class="navbar-toggler shadow-none border-0" type="button" data-bs-toggle="offcanvas"
+      data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="sidebar offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+      aria-labelledby="offcanvasNavbarLabel">
+      <div class="offcanvas-header text-warning border-bottom">
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+        <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="offcanvas"
+          aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body d-flex flex-column  flex-lg-row p-4 p-lg-0">
+        <ul class="navbar-nav justify-content-center align-items-center flex-grow-1 pe-3 fs-5">
+          <li class="nav-item mx-2">
+            <a class="nav-link" href="pHome">Profile</a>
+          </li>
+          <li class="nav-item mx-2">
+            <a class="nav-link" href="pDoctors">Doctors</a>
+          </li>
+          <li class="nav-item mx-2">
+            <a class="nav-link" href="pAppointments">Appointments</a>
+          </li>
+          <li class="nav-item mx-2">
+            <a class="nav-link active px-3 py-1 bg-light rounded-4" aria-current="page"
+              href="pNotifications">Notifications</a>
+          </li>
+        </ul>
+        <div class="d-flex justify-content-center align-items-center gap-3 flex-column flex-lg-row">
+          <a href="change" class="text-success">Change password</a>
+          <a href="" class="text-white text-decoration-none px-3 py-1 bg-danger rounded-4">Log out</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<br><br><br><br>
+
+
+<div class="container table-container" *ngIf="inboxShow">
+  <div class="row table-scroll">
+    <table class="table table-bordered" style="border: black;border-style: groove;">
+      <tr class="bg-info">
+        <th class="text-center header-sticky" colspan="2">-INBOX-</th>
+      </tr>
+      <!--<tr style="height: 60px;" class="bg-warning">
+        <td class="w-75 text-dark fs-5 fw-bold">From: Pera peric<br>Title: Dobro vece</td><td class="w/25 fw-bold">19:00</td>
+      </tr>-->
+      <tr style="height: 60px;" *ngFor="let message of inbox">
+        <td class="w-75 text-dark fs-5 {{message.read ? 'fw-light' : 'fw-bold' }}"
+          [style.background-color]="message.read ? '#A5A3A3' : '#FFC107'" (click)="read(message)">
+          From: {{message.from}}<br>Title: {{message.title}}</td>
+        <td class="w/25 {{message.read ? 'fw-light' : 'fw-bold' }} text-center"
+          [style.background-color]="message.read ? '#A5A3A3' : '#FFC107'" (click)="read(message)">{{ 
+            message.time.substring(0,10) == today ?  message.time.substring(11,16) : message.time.substring(0,10)
+          }}
+          </td>
+      </tr>
+    </table>
+  </div>
+
+</div>
+
+<div class="container table-container" *ngIf="!inboxShow">
+  <div class="row table-scroll">
+    <table class="table table-bordered" style="border: black;border-style: groove;">
+      <tr style="height: 50px;background-color:midnightblue;" class="header-sticky">
+        <th><button type="button" class="btn btn-success" (click)="back()">Back to inbox</button></th>
+        <th class="text-end "><button type="button" class="btn btn-danger" (click)="delete()">Delete message</button></th>
+      </tr>
+      <tr class="bg-secondary message-sticky text-info">
+        <td>Reading mail from : {{displayMessage.from}} </td>
+        <td class="text-end message-sticky">Recieved : {{displayMessage.time}}</td>
+      </tr>
+      <tr>
+        <td colspan="2" style="height: 70%;vertical-align:top;background-color: aliceblue ;word-break: break-all;
+        word-wrap: break-word" >-{{displayMessage.title}} <br> {{displayMessage.text}}
+        
+        </td>
+      </tr>
+      <!--<tr style="height: 60px;" class="bg-warning">
+        <td class="w-75 text-dark fs-5 fw-bold">From: Pera peric<br>Title: Dobro vece</td><td class="w/25 fw-bold">19:00</td>
+      </tr>-->
+
+    </table>
+  </div>
+
+</div>

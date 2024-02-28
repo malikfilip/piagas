@@ -1,0 +1,14 @@
+<h1>Manager Login o.o</h1>
+<table>
+    <tr>
+        <td>Manager username: </td>
+        <td><input type="text" [(ngModel)]="username"></td>
+    </tr>
+    <tr>
+        <td>Manager password: </td>
+        <td><input type="password" [(ngModel)]="password"></td>
+    </tr>
+</table>
+<button (click)="login()">Login</button>
+<br/>
+<span style="color: crimson;">{{errorMessage}}</span>

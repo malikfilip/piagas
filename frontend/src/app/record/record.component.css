@@ -1,0 +1,17 @@
+@media(max-width : 991px){
+    .sidebar{
+        background-color: rgba(147, 92, 92,0.7);
+        backdrop-filter: blur(10px);
+    }
+}
+
+.container-width{
+    width: 20%;
+    margin: auto;
+}
+.table-decor{
+    background-color: lightseagreen;
+    border: darkturquoise solid;
+    width: 100%;
+    color: rgb(255, 255, 255)
+}

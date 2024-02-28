@@ -1,0 +1,25 @@
+@media(max-width : 991px){
+    .sidebar{
+        background-color: rgba(147, 92, 92,0.7);
+        backdrop-filter: blur(10px);
+    }
+}
+
+.table-container{
+	margin: auto;
+	width: 30%;
+}
+.table-scroll{
+    overflow-y: scroll !important;
+    height: 300px;
+}
+.header-sticky{
+    position: sticky;
+    top:0px;
+    background : peru;
+    color: burlywood;
+}
+.message-sticky{
+    position: sticky;
+    top:50px;
+}

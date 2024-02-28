@@ -1,0 +1,89 @@
+<!--Navbar-->
+
+<nav class="navbar navbar-expand-lg" style="background-color: rgb(14, 14, 101);">
+    <div class="container">
+      <a class="navbar-brand fs-3 text-white">{{user.name}} <img src="favicon.ico" width="50" height="50">
+        {{user.lastname}}</a>
+      <button class="navbar-toggler shadow-none border-0" type="button" data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="sidebar offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+        aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas-header text-warning border-bottom">
+          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+          <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="offcanvas"
+            aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body d-flex flex-column  flex-lg-row p-4 p-lg-0">
+          <ul class="navbar-nav justify-content-center align-items-center flex-grow-1 pe-3 fs-5">
+            <li class="nav-item mx-2">
+                <a class="nav-link text-white" href="manager"> Users</a>
+            </li>
+            <li class="nav-item mx-2">
+                <a class="nav-link text-white" href="mReq">Requests</a>
+            </li>
+            <li class="nav-item mx-2">
+                <a class="nav-link active px-3 py-1 bg-light rounded-4 " aria-current="page" href="mOther">Other</a>
+            </li>
+           
+          </ul>
+          <div class="d-flex justify-content-center align-items-center gap-3 flex-column flex-lg-row">
+            <a href="change" class="text-success">Change password</a>
+            <a href="" class="text-white text-decoration-none px-3 py-1 bg-danger rounded-4">Log out</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!--Branches manipulation-->
+
+  <div class="container-md" style="margin-top: 50px;width: 50%;">
+    <div class="row bg-white justify-content-around " style="height: 70px;text-align: center;">
+      <div class="col-sm align-items-center justify-content-center d-flex gap-3" style="border: cornflowerblue solid;background-color: dodgerblue;">
+      <span style="width:25%"> Add new specialization</span> : <input class="form-control" type="text" placeholder="Name" [(ngModel)]="spezz">
+      <button class="btn" style="width: 30px;height: 30px;background-color: lime;" (click)="specAdd()"></button>
+      </div>
+    </div>
+
+    <div class="row bg-white justify-content-around " style="height: 70px;text-align: center;">
+      <div class="col-sm align-items-center justify-content-center d-flex gap-3" style="border: cornflowerblue solid;background-color: dodgerblue;">
+    <span style="width: 20%;">Add branch : </span><select [(ngModel)]="addBranchSpec" class="form-select" style="width: 30%;">
+      <option *ngFor="let s of spec" value="{{s.name}}">{{s.name}}</option></select>
+      <input type="text" placeholder="Branch" class="form-control" style="width: 30%;" [(ngModel)]="addBranch">
+      <input type="number" placeholder="Price" class="form-control" style="width: 10%;" [(ngModel)]="addBranchPrice" >
+      <input type="number" placeholder="Duration" class="form-control" style="width: 10%;" [(ngModel)]="addBranchDuration">
+      <button class="btn" style="width: 30px;height: 30px;background-color: greenyellow;" (click)="branchAdd()"></button>
+      </div>
+    </div>
+
+    <div class="row bg-white justify-content-around " style="height: 70px;text-align: center;">
+      <div class="col-sm align-items-center justify-content-center d-flex gap-3" style="border: cornflowerblue solid;background-color: dodgerblue;">
+        <span style="width: 20%;">Edit branch : </span><select (change)="getEditBranch($event)" [(ngModel)]="editBranchSpec" class="form-select" style="width: 30%;">
+          <option *ngFor="let s of spec" value="{{s.name}}">{{s.name}}</option>
+        </select>
+        <select class="form-control" style="width: 30%;"  [(ngModel)]="editBranch"><option *ngFor="let b of editList" [ngValue]="b">{{b.name}}</option></select>  
+          <input type="number" placeholder="Price" class="form-control" style="width: 10%;" [(ngModel)]="editBranchPrice">
+          <input type="number" placeholder="Duration" class="form-control" style="width: 10%;" [(ngModel)]="editBranchDuration">
+          <button class="btn" style="width: 30px;height: 30px;background-color: yellow;" (click)="branchEdit()"></button>
+          </div>
+    </div>
+
+    <div class="row bg-white justify-content-around " style="height: 70px;text-align: center;">
+      <div class="col-sm align-items-center justify-content-center d-flex gap-3" style="border: cornflowerblue solid;background-color: dodgerblue;">
+        <span style="width: 20%;">Delete branch : </span>
+        <select (change)="getDeleteBranch($event)" [(ngModel)]="deleteBranchSpec" class="form-select" style="width: 30%;">
+          <option *ngFor="let s of spec" value="{{s.name}}">{{s.name}}</option></select>
+          <select class="form-control" style="width: 30%;"  [(ngModel)]="deleteBranch"><option *ngFor="let b of deleteList" [ngValue]="b">{{b.name}}</option></select>
+          <button class="btn" style="width: 30px;height: 30px;background-color: red;" (click)="branchDelete()"></button>
+          </div>
+    </div>
+    <div class="row bg-white justify-content-around " style="height: 70px;text-align: center;">
+      <div class="col-sm align-items-center justify-content-center d-flex gap-3" style="border: cornflowerblue solid;background-color: dodgerblue;">
+        <span style="width: 20%;">Add actions :</span><input class="form-control" type="text" placeholder="Action info" [(ngModel)]="action" style="width: 40;"> 
+        <button class="btn" style="width: 30px;height: 30px;background-color: lightskyblue;" (click)="actionFun()"></button>
+      </div>
+    </div>
+  </div>
+

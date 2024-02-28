@@ -1,0 +1,109 @@
+<!--Doctor menu-->
+<nav class="navbar navbar-expand-lg bg-danger-subtle">
+    <div class="container">
+      <a class="navbar-brand fs-3 text-secondary">{{user.name}} <img src="favicon.ico" width="50" height="50">
+        {{user.lastname}}</a>
+      <button class="navbar-toggler shadow-none border-0" type="button" data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="sidebar offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+        aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas-header text-warning border-bottom">
+          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+          <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="offcanvas"
+            aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body d-flex flex-column  flex-lg-row p-4 p-lg-0">
+          <ul class="navbar-nav justify-content-center align-items-center flex-grow-1 pe-3 fs-5">
+            <li class="nav-item mx-2">
+                <a class="nav-link" href="dHome"> Profile</a>
+            </li>
+            <li class="nav-item mx-2">
+                <a class="nav-link active px-3 py-1 bg-light rounded-4" aria-current="page" href="dAppointments">Appointments</a>
+            </li>
+            <li class="nav-item mx-2">
+              <a class="nav-link" href="dOther">Other</a>
+            </li>
+           
+          </ul>
+          <div class="d-flex justify-content-center align-items-center gap-3 flex-column flex-lg-row">
+            <a href="change" class="text-success">Change password</a>
+            <a href="" class="text-white text-decoration-none px-3 py-1 bg-danger rounded-4">Log out</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!--Table of upcoming appointments -->
+<div class="container d-flex justify-content-around" style="margin-top: 100px;" *ngIf="loaded">
+  <p *ngIf="appointments.length==0">You dont have any upcoming appointments.</p>
+  <div class="card" style="width: 18rem;border: rgb(255, 255, 255) solid;" *ngIf="appointments[0]">
+    <img [src]="appointments[0].result[0].picture" class="card-img-top" alt="X">
+    <div class="card-body">
+      <h5 class="card-title text-center clickable" (click)="reports(appointments[0].patient)">{{appointments[0].result[0].name}} {{appointments[0].result[0].lastname}}</h5>
+      <p class="card-text text-center">This is the patient who has first scheduled appointment with you. </p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Type : {{appointments[0].type}}</li>
+      <li class="list-group-item">Date : {{appointments[0].start.substring(0,10)}}</li>
+      <li class="list-group-item">Time : {{appointments[0].start.substring(11,16)}}</li>
+    </ul>
+    <div class="card-body text-center bg-danger" (click)="cancelMenu(appointments[0])">
+      <img src="assets/cancel.png" width="50" height="50" >
+      
+    </div>
+  </div>
+  <div class="card" style="width: 18rem;border: rgb(255, 255, 255) solid;" *ngIf="appointments[1]">
+    <img [src]="appointments[1].result[0].picture" class="card-img-top" alt="X">
+    <div class="card-body">
+        <h5 class="card-title text-center clickable" (click)="reports(appointments[1].patient)">{{appointments[1].result[0].name}} {{appointments[1].result[0].lastname}}</h5>
+        <p class="card-text text-center">This is the patient who has second scheduled appointment with you. </p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Type : {{appointments[1].type}}</li>
+        <li class="list-group-item">Date : {{appointments[1].start.substring(0,10)}}</li>
+        <li class="list-group-item">Time : {{appointments[1].start.substring(11,16)}}</li>
+      </ul>
+      <div class="card-body text-center bg-danger" (click)="cancelMenu(appointments[1])">
+        <img src="assets/cancel.png" width="50" height="50" >
+        
+      </div>
+    </div>
+  <div class="card" style="width: 18rem;border: rgb(255, 255, 255) solid;" *ngIf="appointments[2]">
+    <img [src]="appointments[2].result[0].picture" class="card-img-top" alt="X">
+    <div class="card-body">
+        <h5 class="card-title text-center clickable" (click)="reports(appointments[2].patient)">{{appointments[2].result[0].name}} {{appointments[2].result[0].lastname}}</h5>
+        <p class="card-text text-center">This is the patient who has third scheduled appointment with you. </p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Type : {{appointments[2].type}}</li>
+        <li class="list-group-item">Date : {{appointments[2].start.substring(0,10)}}</li>
+        <li class="list-group-item">Time : {{appointments[2].start.substring(11,16)}}</li>
+      </ul>
+      <div class="card-body text-center bg-danger" (click)="cancelMenu(appointments[2])">
+        <img src="assets/cancel.png" width="50" height="50">
+        
+      </div>
+    </div>
+</div>
+<br>
+
+<!--Cancelation box-->
+
+<div class="container container-comment" *ngIf="cancelation">
+  <p class="text-center fw-italic">Appointment cancelation</p>
+  <textarea style="width: 100%;height: 100%;" [(ngModel)]="cancelText" placeholder="Explaination about your refusal to take an appointment."></textarea>
+  <div class="d-flex justify-content-evenly">
+    <button type="button" class="btn btn-success" style="white-space: nowrap;" (click)="cancelSend()">Yes</button>
+    <button type="button" class="btn btn-danger" style="white-space: nowrap;" (click)="cancelDrop()">No</button>
+ 
+</div>
+</div>
+
+
+
+
+
+

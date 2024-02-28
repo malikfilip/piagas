@@ -1,0 +1,110 @@
+
+
+<!--Record menu-->
+<nav class="navbar navbar-expand-lg bg-danger-subtle">
+    <div class="container">
+      <a class="navbar-brand fs-3 text-secondary">{{doctor.name}} <img src="favicon.ico" width="50" height="50">
+        {{doctor.lastname}}</a>
+      <button class="navbar-toggler shadow-none border-0" type="button" data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="sidebar offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+        aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas-header text-warning border-bottom">
+          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+          <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="offcanvas"
+            aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body d-flex flex-column  flex-lg-row p-4 p-lg-0">
+          <ul class="navbar-nav justify-content-center align-items-center flex-grow-1 pe-3 fs-5">
+            <li class="nav-item mx-2">
+                <a class="nav-link" href="dAppointments"> Back</a>
+            </li>
+           
+          </ul>
+          <div class="d-flex justify-content-center align-items-center gap-3 flex-column flex-lg-row">
+            <a href="change" class="text-success">Change password</a>
+            <a href="" class="text-white text-decoration-none px-3 py-1 bg-danger rounded-4">Log out</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+<br><br>
+  <!--Records-->
+  <div class="container table-container2 d-flex justify-content-center">
+    <table *ngIf="reports.length>0 else message" class="table text-center">
+      <tr class="bg-dark text-white">
+        <th>
+          Date
+        </th>
+        <th>
+          Doctor
+        </th>
+        <th>
+          Specialization
+        </th>
+        <th>
+          Appointment
+        </th>
+        <th>Diagnosis</th>
+        <th>Therapy</th>
+        <th>Control</th>
+      </tr>
+  
+      <tr *ngFor="let rep of reports" class="bg-secondary text-white" id="sewey">
+        <td>{{rep.date}}</td>
+        <td>{{rep.result[0].name}}</td>
+        <td>{{rep.spec}}</td>
+        <td>{{rep.type}}</td>
+        <td style="width: 300px;">{{rep.diagnosis}}</td>
+        <td style="width: 300px;">{{rep.therapy}}</td>
+        <td>{{rep.control}}</td>
+           
+  
+      </tr>
+      
+  
+    </table>
+
+  
+  </div>
+  <br><br>
+  <div div class="container d-flex justify-content-center" *ngIf="myReports.length>0 else message1">
+      Add report for : <select  aria-label="Default select example" [(ngModel)]="selectedApp" style="width: 200px;" >
+          <option  *ngFor="let app of myReports"  [ngValue]="app">{{app.type}} - {{app.start}}</option>
+      </select>
+      
+  </div>
+
+  <div div class="container d-flex justify-content-center text-center container-width" *ngIf="selectedApp">
+    <table class="table table-decor">
+      <tr>
+        <td style="border-bottom: darkturquoise solid 5px;" colspan="2">Diagnosis</td>
+      </tr>
+      <tr>
+        <td style="height: 100px;" colspan="2"><textarea style="height: 100%;width: 100%;" [(ngModel)]="diagnosis" placeholder="Please type in patient's diagnosis"></textarea></td>
+      </tr>
+      <tr>
+        <td style="border-bottom: darkturquoise solid 5px;" colspan="2">Therapy</td>
+      </tr>
+      <tr>
+        <td style="height: 100px;" colspan="2"><textarea style="height: 100%;width: 100%;" [(ngModel)]="therapy" placeholder="Please type in recommended therapy"></textarea></td>
+      </tr>
+      <tr>
+        <td align="left">Control <input type="date" [(ngModel)]="dateControl"><input type="time" [(ngModel)]="timeControl"> 
+          <td align="right"><button type="button" class="btn btn-light " (click)="addReport()">Achieve</button></td> 
+      </tr>
+      <tr>
+        
+      </tr>
+      
+    </table>
+
+  </div>
+  <span style="color: crimson;" class="d-flex justify-content-center">{{error}}</span>
+  
+  <ng-template #message><label style="color:red">This patient has no reports</label></ng-template>
+  <ng-template #message1><label style="color:red;" class="d-flex justify-content-center">No previous appointments with you.</label></ng-template>
+  

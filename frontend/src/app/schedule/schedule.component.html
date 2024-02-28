@@ -1,0 +1,36 @@
+
+<button type="button" class="btn btn-info" style="margin-top: 10px;margin-left: 10px;" (click)="back()">Back</button>
+
+<h1 class="text-center">Schedule your appointment</h1>
+<div class="container" style="vertical-align: middle;">
+    
+    
+    <select class="form-select menu-widht" size="3" aria-label="size 3 select example" [(ngModel)]="type">
+        <option *ngFor="let service of services" value="{{service.type}}">{{service.type}}</option>
+    </select>
+    <div class="row g-3 align-items-center menu-widht">
+        <div class="col-auto">
+          <label for="inputPassword6" class="col-form-label">Date: </label>
+        </div>
+        <div class="col-auto">
+          <input type="date" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline" [(ngModel)]="date">
+        </div>
+    
+            <div class="col-auto">
+                <label for="inputPassword6" class="col-form-label">Date: </label>
+              </div>
+              <div class="col-auto">
+                <input type="time" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline" [(ngModel)]="time">
+              </div>
+              <button type="button" class="btn btn-success col-2" (click)="submit()">Submit</button>
+        </div>
+        <br>
+        
+</div>
+<div>
+<p class="text-center">{{error}}</p>
+</div>
+
+
+
+

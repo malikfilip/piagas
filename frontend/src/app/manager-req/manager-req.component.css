@@ -1,0 +1,9 @@
+@media(max-width : 991px){
+    .sidebar{
+        background-color: rgba(147, 92, 92,0.7);
+        backdrop-filter: blur(10px);
+    }
+}
+.centerCell{
+    vertical-align: middle;
+}

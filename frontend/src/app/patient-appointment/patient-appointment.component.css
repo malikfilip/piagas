@@ -1,0 +1,18 @@
+@media(max-width : 991px){
+    .sidebar{
+        background-color: rgba(147, 92, 92,0.7);
+        backdrop-filter: blur(10px);
+    }
+}
+.table-container2{
+	margin: auto;
+	width: 120%;
+}
+.table-container1{
+	margin: auto;
+	width: 50%;
+}
+.table-container3{
+	margin: auto;
+	width: 20%;
+}

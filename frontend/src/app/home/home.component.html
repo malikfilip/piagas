@@ -1,0 +1,97 @@
+
+
+<div class="container-md text-center" style="margin-top: 10px;">
+  <div class="row table-width text-center">
+    <div class="col">PL <img src="favicon.ico" width="50" height="50"> Hospital</div>
+  <div class="row table-width text-center">
+    <div class="col">
+      <div class="col"><a href="login" class="text-white text-decoration-none px-3 py-1 bg-primary rounded-4">Login</a></div>
+      <div class="col" style="margin-top: 10px;"><a href="register" class="text-white text-decoration-none px-3 py-1 bg-secondary rounded-4">Register</a></div>
+
+    </div>
+  </div>
+</div>
+
+<div id="carouselExampleAutoplaying" class="carousel slide carousel-fade lmao" data-bs-ride="carousel" style="margin-top: 20px;">
+    <div class="carousel-inner">
+      <div class="carousel-item active resItem" data-bs-interval="5000">
+        <img src="assets/slika1.png" class="d-block w-100 resPic" alt="..." >
+      </div>
+      <div class="carousel-item resItem">
+        <img src="assets/slika2.png" class="d-block w-100 resPic" alt="..." >
+      </div>
+      <div class="carousel-item resItem">
+        <img src="assets/slika3.png" class="d-block w-100 resPic" alt="..." >
+      </div>
+      <div class="carousel-item resItem">
+        <img src="assets/slika4.png" class="d-block w-100 resPic" alt="..." >
+      </div>
+      <div class="carousel-item resItem">
+        <img src="assets/slika5.png" class="d-block w-100 resPic" alt="..." >
+      </div>
+      <div class="carousel-item resItem">
+        <img src="assets/slika6.png" class="d-block w-100 resPic" alt="..." >
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+
+
+<div class="container  justify-content-center text-center" style="margin-top: 50px;">
+Sort : 
+<select [(ngModel)]="sortParam">
+<option value="name" selected="selected">
+    Name
+</option>
+<option value="lastname">
+    Last name
+</option>
+<option value="spec">
+    Specialization
+</option>
+</select>
+<button style="white-space: nowrap;" (click)="sortDown()">🡻</button>
+<button style="white-space: nowrap;" (click)="sortUp()">🡹</button>
+<br/>
+Search: <input type="text" placeholder="Name" [(ngModel)]="searchName">
+ <input type="text" placeholder="Lastname" [(ngModel)]="searchLastname"> 
+ <input type="text" placeholder="Specialization" [(ngModel)]="searchSpec"><button (click)="search()">Search</button></div>
+<div class="container-md justify-content-center d-felx" style="margin-top: 20px;">
+
+
+<table border="5px" *ngIf="doctors.length > 0 else message" class="table table-width bg-danger-subtle">
+  <tr class="text-center"><th>
+    Doc. picture
+  </th>
+<th>Doc. name</th>
+<th>doc. Specialization</th></tr>  
+  <tr *ngFor="let d of doctors" class="text-center" style="border: violet solid;">
+        <td>
+            <img [src] = "d.picture" width="100" height="100">
+        </td>
+        <td align="center">
+            {{d.name}} {{d.lastname}}
+        </td>
+        <td align="center">
+            {{d.spec}}
+        </td>
+    </tr>
+</table>
+</div>
+
+
+
+
+ 
+
+
+
+ <ng-template #message><label style="color:red">No matches found</label></ng-template>

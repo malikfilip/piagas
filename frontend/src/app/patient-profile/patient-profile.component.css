@@ -1,0 +1,13 @@
+@media(max-width : 991px){
+    .sidebar{
+        background-color: rgba(147, 92, 92,0.7);
+        backdrop-filter: blur(10px);
+    }
+}
+.menu-pink{
+    background-color: rgba(245, 139, 201, 0.8);
+   
+}
+.info-pink{
+    background-color: rgb(193, 166, 215);
+}

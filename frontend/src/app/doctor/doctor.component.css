@@ -1,0 +1,24 @@
+@media(max-width : 991px){
+    .sidebar{
+        background-color: rgba(147, 92, 92,0.7);
+        backdrop-filter: blur(10px);
+    }
+}
+.menu-pink{
+    background-color: rgba(59, 242, 89, 0.5);
+   
+}
+.info-pink{
+    background-color: rgb(26, 207, 143)
+}
+.container-width{
+    width: 15%;
+    margin: auto;
+}
+
+table{
+    border: 3px solid black !important;
+    border-radius: 5px;
+    border-collapse: collapse;
+    background-color: aquamarine;
+}

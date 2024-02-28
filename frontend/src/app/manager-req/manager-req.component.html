@@ -1,0 +1,125 @@
+<!--Navbar-->
+
+<nav class="navbar navbar-expand-lg" style="background-color: rgb(14, 14, 101);">
+    <div class="container">
+      <a class="navbar-brand fs-3 text-white">{{user.name}} <img src="favicon.ico" width="50" height="50">
+        {{user.lastname}}</a>
+      <button class="navbar-toggler shadow-none border-0" type="button" data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="sidebar offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+        aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas-header text-warning border-bottom">
+          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+          <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="offcanvas"
+            aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body d-flex flex-column  flex-lg-row p-4 p-lg-0">
+          <ul class="navbar-nav justify-content-center align-items-center flex-grow-1 pe-3 fs-5">
+            <li class="nav-item mx-2">
+                <a class="nav-link text-white" href="manager"> Users</a>
+            </li>
+            <li class="nav-item mx-2">
+                <a class="nav-link active px-3 py-1 bg-light rounded-4 " aria-current="page" href="mReq">Requests</a>
+            </li>
+            <li class="nav-item mx-2">
+                <a class="nav-link text-white" href="mOther">Other</a>
+            </li>
+           
+          </ul>
+          <div class="d-flex justify-content-center align-items-center gap-3 flex-column flex-lg-row">
+            <a href="change" class="text-success">Change password</a>
+            <a href="" class="text-white text-decoration-none px-3 py-1 bg-danger rounded-4">Log out</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!--Requests for registration-->
+
+
+
+  <div class="container">
+  <table class="table border border-dark" *ngIf="requests.length>0 else message1" style="margin-top: 20px;">
+    <thead class="thead-light">
+      <tr class="table-primary text-center">
+        <th scope="col">Picture</th>
+        <th scope="col ">Name</th>
+        <th scope="col ">Username</th>
+        <th scope="col ">Phone</th>
+        <th scope="col ">E-mail address</th>
+        <th scope="col ">Address</th>
+        <th scope="col ">Approve</th>
+        
+
+      </tr>
+      <tr *ngFor="let d of requests" >
+        <td class="bg-info text-center">
+          <img [src]="d.picture" width="100" height="100">
+        </td>
+        <td class="bg-info text-danger fs-3 text-center centerCell ">
+          {{d.name}} {{d.lastname}}
+        </td>
+        <td class="bg-info text-danger fs-5 text-center centerCell ">
+          {{d.username}}
+        </td>
+        <td class="bg-info text-danger fs-5 text-center centerCell ">
+          {{d.phone}}
+        </td>
+        <td class="bg-info text-danger fs-5 text-center centerCell ">
+          {{d.mail}}
+        </td>
+        <td class="bg-info text-danger fs-5 text-center centerCell ">
+          {{d.address}}
+        </td>
+        <td class="bg-info text-center centerCell gap-3">
+          <button  style="width: fit-content;" class="p-2" (click)="accept(d)">✔️</button>
+          <button style="width: fit-content" class="ml-auto p-2" (click)="decline(d)">❌</button>
+        </td>
+
+      </tr>
+    </thead>
+  </table>
+  </div>
+
+  <!--Requests for branches-->
+
+  <div class="container">
+    <table class="table border border-dark" *ngIf="branchReq.length>0 else message2" style="margin-top: 20px;">
+      <thead class="thead-light">
+        <tr class="table-primary text-center">
+          <th scope="col">Doctor</th>
+          <th scope="col ">Specialization</th>
+          <th scope="col ">Price</th>
+          <th scope="col ">Duration</th>
+          <th scope="col ">Approve</th>
+          
+  
+        </tr>
+        <tr *ngFor="let b of branchReq" >
+          <td class="bg-info text-danger fs-3 text-center centerCell ">
+            {{b.username}}
+          </td>
+          <td class="bg-info text-danger fs-5 text-center centerCell ">
+            {{b.spec}}
+          </td>
+          <td class="bg-info text-danger fs-5 text-center centerCell ">
+            {{b.price}}
+          </td>
+          <td class="bg-info text-danger fs-5 text-center centerCell ">
+            {{b.duration}}
+          </td>
+          <td class="bg-info text-center centerCell gap-3">
+            <button  style="width: fit-content;" class="p-2" (click)="acceptBranch(b)">✔️</button>
+            <button style="width: fit-content" class="ml-auto p-2" (click)="declineBranch(b)">❌</button>
+          </td>
+  
+        </tr>
+      </thead>
+    </table>
+    </div>
+
+  <ng-template #message1><label style="color:red;margin-top: 20px;" class="d-flex justify-content-center">No pending requests for registration.</label></ng-template>
+  <ng-template #message2><label style="color:red;margin-top: 20px;" class="d-flex justify-content-center">No pending requests for new branches.</label></ng-template>
